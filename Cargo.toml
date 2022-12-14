@@ -8,4 +8,6 @@ edition = "2021"
 [dependencies]
 yew = { version = "0.20.0", features = ["csr"] }
 stylist = {version = "0.10", features = ["yew_integration"] }
-
+# For debugging and logging
+log = "0.4.6"
+wasm-logger = "0.2.0"
