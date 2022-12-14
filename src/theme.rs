@@ -1,32 +1,38 @@
-pub use crate::prelude::*;
-
 use std::rc::Rc;
 
-#[derive(Clone, Debug, PartialEq, Default)]
+// pub use crate::prelude::*;
+use yew::prelude::*;
+
+#[derive(Debug, PartialEq, Eq, Clone)]
 pub struct Theme {
     pub text_color: String,
 }
 
-fn default_theme() -> Theme {
-    Theme {
-        text_color: "#ffffff".into(),
+// Context needs to be reducable if we want to be able to change it
+impl Reducible for Theme {
+    type Action = String;
+
+    fn reduce(self: Rc<Self>, action: Self::Action) -> Rc<Self> {
+        Theme { text_color: action }.into()
     }
 }
+
+pub type ThemeContext = UseReducerHandle<Theme>;
 
 #[derive(Properties, Debug, PartialEq)]
 pub struct ThemeProviderProps {
     #[prop_or_default]
     pub children: Children,
-    #[prop_or_default(default_theme)]
-    pub theme: Theme,
 }
 
 #[function_component]
 pub fn ThemeProvider(props: &ThemeProviderProps) -> Html {
-    let theme = use_memo(|_| props.theme.clone(), ());
+    let theme = use_reducer(|| Theme {
+        text_color: "blue".to_string(),
+    });
     html! {
-        <ContextProvider<Rc<Theme>> context={theme}>
+        <ContextProvider<ThemeContext> context={theme}>
             {props.children.clone()}
-        </ContextProvider<Rc<Theme>>>
+        </ContextProvider<ThemeContext>>
     }
 }
