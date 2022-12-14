@@ -20,6 +20,7 @@ mod prelude {
 // Steps left
 
 use prelude::*;
+use wasm_logger;
 
 fn create_theme() -> Theme {
     Theme {
@@ -30,7 +31,7 @@ fn create_theme() -> Theme {
 #[function_component]
 fn App() -> Html {
     html! {
-        <ThemeProvider theme={create_theme()}>
+        <ThemeProvider>
             <Text class={Some("custom".into())}>
                 {"Snakes with human traits"}
             </Text>
@@ -43,5 +44,6 @@ fn App() -> Html {
 }
 
 fn main() {
+    wasm_logger::init(wasm_logger::Config::default());
     yew::Renderer::<App>::new().render();
 }
