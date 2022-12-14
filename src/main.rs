@@ -21,16 +21,21 @@ mod prelude {
 
 use prelude::*;
 
-// #[function_component]
+fn create_theme() -> Theme {
+    Theme {
+        text_color: "#0000ff".into(),
+    }
+}
+
 #[function_component]
 fn App() -> Html {
     html! {
-        <ThemeProvider>
+        <ThemeProvider theme={create_theme()}>
             <Text class={Some("custom".into())}>
                 {"Snakes with human traits"}
             </Text>
             <Text>
-                {"Boobs on the ground gameplay"}
+                {"Snakes with human traits"}
             </Text>
             <Text custom={TextProps {label: "LOL".into()}} />
         </ThemeProvider>
