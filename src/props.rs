@@ -10,5 +10,6 @@ pub struct CommonProps<T: PartialEq> {
     pub children: Children,
     pub size: Option<String>,
     pub class: Option<Classes>,
+    pub color: Option<String>,
     pub custom: Option<T>,
 }

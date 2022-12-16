@@ -9,6 +9,7 @@ pub struct ButtonProps {
 pub fn Button(props: &CommonProps<ButtonProps>) -> Html {
     html! {
         <button>
+            {props.custom.}
         </button>
     }
 }
