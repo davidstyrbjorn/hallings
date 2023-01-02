@@ -26,4 +26,41 @@ impl StyleUtil {
 
         return style.to_owned();
     }
+
+    pub fn create_button_style(props: &CommonProps<ButtonProps>, theme: &Theme) -> String {
+        let mut style_entries = HashMap::new();
+        style_entries.insert("background-color", &theme.background);
+
+        //special for button
+        let border = String::from("none");
+        style_entries.insert("border", &border);
+
+        //border-radius style
+        let border_radius = String::from("5px");
+        style_entries.insert("border-radius", &border_radius);
+
+        let padding = String::from("0px 10px");
+        style_entries.insert("padding", &padding);
+
+        let min_width = String::from("70px");
+        style_entries.insert("min-width", &min_width);
+
+        // Optional match the props against style entries
+        if let Some(color) = &props.color {
+            style_entries.insert("background-color", color);
+        }
+        if let Some(font_size) = &props.size {
+            style_entries.insert("font-size", font_size);
+        }
+
+        let mut style = String::new();
+        style_entries.keys().for_each(|key| {
+            style += &format!("{}: {}; ", key, style_entries[key]);
+        });
+
+        // Special for button
+        //border style
+
+        return style.to_owned();
+    }
 }

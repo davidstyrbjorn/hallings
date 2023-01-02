@@ -3,6 +3,7 @@ mod props;
 mod style_util;
 mod text;
 mod theme;
+mod button;
 
 mod prelude {
     pub use crate::password_strength_input::*;
@@ -17,16 +18,28 @@ mod prelude {
     pub use stylist::Style;
     pub use yew::prelude::*;
     pub use yew::Properties;
+    pub use crate::button::*;
+    pub use web_sys::console;
+    pub use gloo_events::*;
 }
 
 use prelude::*;
+use yew::context;
 
 #[function_component]
 fn App() -> Html {
+    fn click(s: yew::MouseEvent) {
+        console::log_1(&"asss".into())
+    }
+
+
+
+    let cb = Callback::from(click);
+        
     html! {
-        <ThemeProvider>
-            // <Text color="red" size="64px">{"Hallingos"}</Text>
-            <PasswordStrengthInput/>
+        <ThemeProvider >
+            <Text size={"40px"}>{"hej"}</Text>
+            <Button custom={ButtonProps{label: "hello".into(), onclick: cb}}></Button>
         </ThemeProvider>
     }
 }
