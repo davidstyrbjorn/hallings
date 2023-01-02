@@ -1,9 +1,11 @@
+mod password_strength_input;
 mod props;
 mod style_util;
 mod text;
 mod theme;
 
 mod prelude {
+    pub use crate::password_strength_input::*;
     pub use crate::props::*;
     pub use crate::style_util::*;
     pub use crate::text::*;
@@ -23,13 +25,12 @@ use prelude::*;
 fn App() -> Html {
     html! {
         <ThemeProvider>
-            <Text color="red" size="64px">{"Hallingos"}</Text>
+            // <Text color="red" size="64px">{"Hallingos"}</Text>
+            <PasswordStrengthInput/>
         </ThemeProvider>
     }
 }
 
 fn main() {
-    wasm_logger::init(wasm_logger::Config::default());
-
     yew::Renderer::<App>::new().render();
 }
