@@ -20,13 +20,43 @@ mod prelude {
 }
 
 use prelude::*;
+use web_sys::console;
+
+pub fn calculate_strength_level(value: String) -> StrengthLevel {
+    if value.contains("secure") {
+        return StrengthLevel::HIGH;
+    }
+    StrengthLevel::LOW
+}
+
+pub fn on_level_change(strength_level: StrengthLevel) {
+    match strength_level {
+        StrengthLevel::LOW => console::log_1(&"LOW".into()),
+        StrengthLevel::MEDIUM => console::log_1(&"MEDIUM".into()),
+        StrengthLevel::HIGH => console::log_1(&"HIGH".into()),
+    }
+}
+
+fn strength_level_to_text_and_color(value: StrengthLevel) -> (String, String) {
+    match value {
+        StrengthLevel::LOW => ("Password not strong enough".into(), "red".into()),
+        StrengthLevel::MEDIUM => ("Password weak but passable".into(), "blue".into()),
+        StrengthLevel::HIGH => ("Password strong".into(), "green".into()),
+    }
+}
 
 #[function_component]
 fn App() -> Html {
     html! {
         <ThemeProvider>
             // <Text color="red" size="64px">{"Hallingos"}</Text>
-            <PasswordStrengthInput/>
+            <PasswordStrengthInput custom={PasswordStrengthInputProps {
+                // calculate_strength_level: Some(calculate_strength_level),
+                calculate_strength_level: None,
+                strength_level_to_text_and_color: Some(strength_level_to_text_and_color),
+                // strength_level_to_text_and_color: None,
+                strength_callback: on_level_change
+            }} />
         </ThemeProvider>
     }
 }
