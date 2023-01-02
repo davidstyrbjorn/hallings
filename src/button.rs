@@ -2,6 +2,9 @@ use gloo_events::EventListener;
 use wasm_bindgen::{JsCast, __rt::IntoJsResult};
 use web_sys::{EventTarget, HtmlElement};
 use std::cell::Cell;
+use std::borrow::{Cow, Borrow};
+use std::rc::Rc;
+use std::borrow::BorrowMut;
 
 use crate::prelude::*;
 
@@ -11,31 +14,6 @@ pub struct ButtonProps {
     pub onclick: Callback<yew::MouseEvent>,
 }
 
-enum MouseInsideAction {
-    ChangeMouseInside,
-}
-
-struct MouseInsideState{
-    mouse_inside: bool,   
-}
-
-impl Default for MouseInsideState {
-    fn default() -> Self {
-        Self {mouse_inside: false}
-    }
-}
-
-impl Reducible for MouseInsideState{
-    type Action = MouseInsideAction;
-
-    fn reduce(self: std::rc::Rc<Self>, action: Self::Action) -> std::rc::Rc<Self> {
-        let next_inside = match action {
-           MouseInsideAction::ChangeMouseInside => !self.mouse_inside,
-        };
-        Self {mouse_inside: next_inside}.into()
-    }
-}
-
 #[function_component]
 pub fn Button(props: &CommonProps<ButtonProps>) -> Html {
     let cb;
@@ -43,21 +21,15 @@ pub fn Button(props: &CommonProps<ButtonProps>) -> Html {
     let styles = StyleUtil::create_button_style(props, &theme.unwrap());
 
     //replaste usetate with use_reducer
-    let mouse_inside = use_state(|| false);
+    let mouse_inside = use_state(|| Rc::new(false));
 
-    
-
-    let mouse_enter = | e: MouseEvent| {
-        let mouse_inside = mouse_inside.clone();
-        let a = 
-        mouse_inside.set(true);
+    let mouse_enter = move | e: MouseEvent| {
+        mouse_inside.set(Rc::new(true));
         console::log_1(&"mouse entered".into());
     };
 
-    let mouse_leave = | e: MouseEvent| {
-        let mouse_inside = mouse_inside.clone();
-
-        mouse_inside.set(false);
+    let mouse_leave = move | e: MouseEvent| {
+        
         console::log_1(&"mouse left".into());
     };
 
