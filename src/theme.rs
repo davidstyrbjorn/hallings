@@ -28,7 +28,7 @@ pub struct ThemeProviderProps {
 #[function_component]
 pub fn ThemeProvider(props: &ThemeProviderProps) -> Html {
     let theme = use_reducer(|| Theme {
-        text_color: "red".to_string(),
+        text_color: "black".to_string(),
     });
     html! {
         <ContextProvider<ThemeContext> context={theme}>

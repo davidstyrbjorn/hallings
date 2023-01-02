@@ -22,8 +22,8 @@ use prelude::*;
 #[function_component]
 fn App() -> Html {
     html! {
-        <ThemeProvider >
-            <Text>{"hej"}</Text>
+        <ThemeProvider>
+            <Text color="red" size="64px">{"Hallingos"}</Text>
         </ThemeProvider>
     }
 }

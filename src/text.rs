@@ -8,22 +8,15 @@ pub struct TextProps {
 #[function_component]
 pub fn Text(props: &CommonProps<TextProps>) -> Html {
     let theme = use_context::<ThemeContext>();
-
     let x = StyleUtil::create_text_style(props, &theme.unwrap());
-    // info!("{}", x);
-    log::info!("{}", x);
 
     html! {
-        if let Some(label) = props.custom.clone() {
-            <p class={classes!("hallings-text", props.class.clone())}
-                style={x}
-            >
-                {label.label}
+        if let Some(custom) = props.custom.clone() {
+            <p class={classes!(props.class.clone())} style={x}>
+                {custom.label}
             </p>
         }else {
-            <p class={classes!("hallings-text", props.class.clone())}
-                style={x}
-            >
+            <p class={classes!(props.class.clone())} style={x}>
                 {props.children.clone()}
             </p>
         }
