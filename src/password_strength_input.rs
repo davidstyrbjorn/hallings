@@ -69,7 +69,7 @@ pub fn PasswordStrengthInput(props: &CommonProps<PasswordStrengthInputProps>) ->
 
     html! {
         <div>
-            <input type="password" value={text_value} oninput={on_change} />
+            // <input type="password" value={text_value} oninput={on_change} />
             // <Text>{strength_level_to_string((*strength).clone())}</Text>
         </div>
     }
