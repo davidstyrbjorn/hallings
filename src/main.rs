@@ -23,11 +23,16 @@ mod prelude {
     pub use web_sys::console;
     pub use yew::prelude::*;
     pub use yew::Properties;
+    pub use crate::button::*;
+    pub use web_sys::console;
+    pub use gloo_events::*;
+    pub use yew::ServerRenderer;
 }
 
 use prelude::*;
 use web_sys::console;
 use yew::context;
+use web_sys::Document;
 
 pub fn calculate_strength_level(value: String) -> StrengthLevel {
     if value.contains("secure") {
@@ -54,8 +59,10 @@ fn strength_level_to_text_and_color(value: StrengthLevel) -> (String, String) {
 
 #[function_component]
 fn App() -> Html {
+    //println!("{}", );
+
     fn click(s: yew::MouseEvent) {
-        console::log_1(&"asss".into())
+        console::log_1(&"hello".into())
     }
 
     let cb = Callback::from(click);
@@ -110,4 +117,32 @@ fn App() -> Html {
 
 fn main() {
     yew::Renderer::<App>::new().render();
+}
+
+#[cfg(test)]
+pub mod tests {
+    use super::*;
+    use wasm_bindgen::JsCast;
+    use wasm_bindgen_test::wasm_bindgen_test;
+    use web_sys::HtmlElement;
+
+    // This macro should be only called once per binary in crate
+    wasm_bindgen_test::wasm_bindgen_test_configure!(run_in_browser);
+
+    #[wasm_bindgen_test]
+    fn clicking_on_button_should_increment_value() {
+        let document = gloo_utils::document();
+        let body = document.body().unwrap();
+        let div = document.create_element("div").unwrap();
+        body.append_child(&div).unwrap();
+        yew::start_app_in_element::<Model>(div);
+
+        let value = body.query_selector(".panel > p").unwrap().unwrap();
+        let button = body.query_selector(".panel > button").unwrap().unwrap();
+        let button = button.dyn_into::<HtmlElement>().unwrap();
+
+        assert_eq!("0", value.text_content().unwrap());
+        button.click();
+        assert_eq!("1", value.text_content().unwrap());
+    }
 }
