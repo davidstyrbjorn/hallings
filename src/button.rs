@@ -1,10 +1,10 @@
 use gloo_events::EventListener;
+use std::borrow::BorrowMut;
+use std::borrow::{Borrow, Cow};
+use std::cell::Cell;
+use std::rc::Rc;
 use wasm_bindgen::{JsCast, __rt::IntoJsResult};
 use web_sys::{EventTarget, HtmlElement};
-use std::cell::Cell;
-use std::borrow::{Cow, Borrow};
-use std::rc::Rc;
-use std::borrow::BorrowMut;
 
 use crate::prelude::*;
 
@@ -18,20 +18,33 @@ pub struct ButtonProps {
 pub fn Button(props: &CommonProps<ButtonProps>) -> Html {
     let cb;
     let theme = use_context::<ThemeContext>();
-    let styles = StyleUtil::create_button_style(props, &theme.unwrap());
+    let mut styles = StyleUtil::create_button_style(props, &theme.unwrap());
 
     //replaste usetate with use_reducer
-    let mouse_inside = use_state(|| Rc::new(false));
+    let mouse_inside = use_state(|| false);
 
-    let mouse_enter = move | e: MouseEvent| {
-        mouse_inside.set(Rc::new(true));
-        console::log_1(&"mouse entered".into());
+    let mouse_enter = {
+        let mouse_inside = mouse_inside.clone();
+        Callback::from(move |e: MouseEvent| {
+            mouse_inside.set(true);
+        })
     };
 
-    let mouse_leave = move | e: MouseEvent| {
-        
+    let mouse_leave = {
+        let mouse_inside = mouse_inside.clone();
+        Callback::from(move |e: MouseEvent| {
+            mouse_inside.set(false);
+        })
+    };
+
+    // let mouse_leave = move | e: MouseEvent| {
+    if *mouse_inside {
+        styles += "background-color: red;"
+    } else {
         console::log_1(&"mouse left".into());
-    };
+    }
+
+    // Build style
 
     if let Some(c_props) = props.custom.clone() {
         cb = c_props.onclick;
@@ -44,9 +57,8 @@ pub fn Button(props: &CommonProps<ButtonProps>) -> Html {
                 </button>
             }
         }
-    }
-    else {
-        html!{
+    } else {
+        html! {
             <button>{"Error"}</button>
         }
     }
