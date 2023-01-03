@@ -1,13 +1,4 @@
-use gloo_events::EventListener;
-use std::borrow::BorrowMut;
-use std::borrow::{Borrow, Cow};
-use std::cell::Cell;
-use std::rc::Rc;
-use wasm_bindgen::{JsCast, __rt::IntoJsResult};
-use web_sys::{EventTarget, HtmlElement};
-
 use crate::prelude::*;
-
 #[derive(PartialEq, Properties, Clone)]
 pub struct ButtonProps {
     pub label: String,
@@ -39,7 +30,7 @@ pub fn Button(props: &CommonProps<ButtonProps>) -> Html {
 
     // let mouse_leave = move | e: MouseEvent| {
     if *mouse_inside {
-        styles += "background-color: red;"
+        styles += "background-color: #2c7a7b;"
     } else {
         console::log_1(&"mouse left".into());
     }

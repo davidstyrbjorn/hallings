@@ -29,7 +29,7 @@ impl StyleUtil {
 
     pub fn create_button_style(props: &CommonProps<ButtonProps>, theme: &Theme) -> String {
         let mut style_entries = HashMap::new();
-        style_entries.insert("background-color", &theme.background);
+        style_entries.insert("background-color", &theme.foreground);
 
         //special for button
         let border = String::from("none");
