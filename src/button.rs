@@ -50,7 +50,7 @@ pub fn Button(props: &CommonProps<ButtonProps>) -> Html {
         cb = c_props.onclick;
         html! {
             if let Some(label) = props.custom.clone() {
-                <button onmouseenter={mouse_enter} onmouseleave={mouse_leave} onclick={move |e: yew::MouseEvent| cb.emit(e)}
+                <button onmouseenter={move |e: MouseEvent| mouse_enter.emit(e)} onmouseleave={move |e: MouseEvent| mouse_leave.emit(e)} onclick={move |e: yew::MouseEvent| cb.emit(e)}
                  style={styles}
                 >
                     <Text color={"white"}>{label.label}</Text>
