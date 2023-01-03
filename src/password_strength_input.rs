@@ -30,7 +30,6 @@ fn strength_level_to_text_and_color(value: &StrengthLevel) -> (String, String) {
         StrengthLevel::LOW => ("Low level".into(), "red".into()),
         StrengthLevel::MEDIUM => ("Medium level".into(), "blue".into()),
         StrengthLevel::HIGH => ("High level".into(), "green".into()),
-        _ => ("None".into(), "black".into()),
     }
 }
 
