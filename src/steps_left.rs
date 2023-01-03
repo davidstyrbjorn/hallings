@@ -16,6 +16,7 @@ pub struct StepsLeftProps {
 #[function_component]
 pub fn StepsLeft(props: &CommonPropsNoOption<StepsLeftProps>) -> Html {
     let size: (usize, usize) = (props.custom.width, props.custom.height);
+    let theme = use_context::<ThemeContext>();
 
     // Calculate step size as width of canvas / numbe of steps
     let step_size = props.custom.width / props.custom.steps.len();
@@ -28,9 +29,9 @@ pub fn StepsLeft(props: &CommonPropsNoOption<StepsLeftProps>) -> Html {
         .enumerate()
         .map(|(i, step)| {
             let x = (i * step_size) + (step_size / 2);
-            let mut color = "rgb(100,100,100)";
+            let mut color = theme.as_ref().unwrap().foreground.convert_to_svg();
             if props.custom.current_step > i {
-                color = "rgb(0,0,0)";
+                color = theme.as_ref().unwrap().main.convert_to_svg();
             }
             html! {
                 <>
@@ -42,9 +43,11 @@ pub fn StepsLeft(props: &CommonPropsNoOption<StepsLeftProps>) -> Html {
                         {step.label}
                     </text>
                     <circle
+                        class={classes!("hallings-circle")}
                         fill={color}
                         cx={x.to_string()}
                         cy={center.to_string()}
+                        style="fill 1s;"
                         r="15"
                     />
                 </>
@@ -53,18 +56,20 @@ pub fn StepsLeft(props: &CommonPropsNoOption<StepsLeftProps>) -> Html {
         .collect::<Html>();
 
     let steps = props.custom.steps.clone();
+
     let lines_display = steps
         .into_iter()
         .enumerate()
         .map(|(i, _step)| {
             let x = (i * step_size) + (step_size / 2);
-            let mut color = "rgb(100,100,100)";
+            let mut color = theme.as_ref().unwrap().foreground.convert_to_svg();
             if props.custom.current_step > i {
-                color = "rgb(0,0,0)";
+                color = theme.as_ref().unwrap().main.convert_to_svg();
             }
             html! {
                 if i != 0 {
                     <line
+                        class={classes!("hallings-line")}
                         x1={x.to_string()} x2={(x-step_size).to_string()}
                         y1={center.to_string()} y2={center.to_string()}
                         style={format!("stroke:{};stroke-width:5", color)}

@@ -70,8 +70,8 @@ fn App() -> Html {
     let cb = Callback::from(click);
 
     html! {
-        <ThemeProvider >
-            <Text size={"40px"}>{"hej"}</Text>
+        <MaestroProvider>
+            <Text size={"40px"}>{"HALLINGS PLAYGROUND"}</Text>
             // <Text color="red" size="64px">{"Hallingos"}</Text>
             <PasswordStrengthInput custom={PasswordStrengthInputProps {
                 // calculate_strength_level: Some(calculate_strength_level),
@@ -92,12 +92,6 @@ fn App() -> Html {
                                 label: "Step 1".into()
                             },
                             Step {
-                                label: "Step 2".into()
-                            },
-                            Step {
-                                label: "Step 3".into()
-                            },
-                            Step {
                                 label: "Step 3".into()
                             },
                             Step {
@@ -113,7 +107,7 @@ fn App() -> Html {
                     }
                 }
             />
-        </ThemeProvider>
+        </MaestroProvider>
     }
 }
 

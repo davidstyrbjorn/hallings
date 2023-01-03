@@ -9,7 +9,10 @@ pub struct ButtonProps {
 pub fn Button(props: &CommonProps<ButtonProps>) -> Html {
     let cb;
     let theme = use_context::<ThemeContext>();
-    let mut styles = StyleUtil::create_button_style(props, &theme.unwrap());
+    let mut styles = StyleUtil::create_button_style(props, &theme.as_ref().unwrap());
+
+    // Retrieve correct color for hovered
+    let hovered_color = theme.as_ref().unwrap().secondary.clone();
 
     //replaste usetate with use_reducer
     let mouse_inside = use_state(|| false);
@@ -30,9 +33,8 @@ pub fn Button(props: &CommonProps<ButtonProps>) -> Html {
 
     // let mouse_leave = move | e: MouseEvent| {
     if *mouse_inside {
-        styles += "background-color: #2c7a7b;"
-    } else {
-        console::log_1(&"mouse left".into());
+        let temp = &*format!("background-color: {}", hovered_color);
+        styles += temp;
     }
 
     // Build style

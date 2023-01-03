@@ -6,8 +6,20 @@ use yew::prelude::*;
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct Theme {
     pub text_color: String,
+    pub main: String,
+    pub secondary: String,
+    pub white: String,
     pub foreground: String,
-    pub background: String,
+}
+
+pub trait ToSVGHex {
+    fn convert_to_svg(&self) -> Self;
+}
+
+impl ToSVGHex for String {
+    fn convert_to_svg(&self) -> Self {
+        return format!("#{}", &self[1..self.len()]);
+    }
 }
 
 // Context needs to be reducable if we want to be able to change it
@@ -28,11 +40,13 @@ pub struct ThemeProviderProps {
 }
 
 #[function_component]
-pub fn ThemeProvider(props: &ThemeProviderProps) -> Html {
+pub fn MaestroProvider(props: &ThemeProviderProps) -> Html {
     let theme = use_reducer(|| Theme {
-        text_color: "black".to_string(),
-        foreground: "#319795".to_string(),
-        background: "#2c7a7b".to_string(),
+        text_color: "#000".to_string(),
+        main: "#E519AD".to_string(),
+        secondary: "#b4609d".to_string(),
+        white: "#F0EAD6".to_string(),
+        foreground: "#808080".to_string(),
     });
     html! {
         <ContextProvider<ThemeContext> context={theme}>

@@ -22,14 +22,12 @@ impl StyleUtil {
             style += &format!("{}: {}; ", key, style_entries[key]);
         });
 
-        // Special for text
-
-        return style.to_owned();
+        return style;
     }
 
     pub fn create_button_style(props: &CommonProps<ButtonProps>, theme: &Theme) -> String {
         let mut style_entries = HashMap::new();
-        style_entries.insert("background-color", &theme.foreground);
+        style_entries.insert("background-color", &theme.main);
 
         //special for button
         let border = String::from("none");
@@ -58,9 +56,6 @@ impl StyleUtil {
             style += &format!("{}: {}; ", key, style_entries[key]);
         });
 
-        // Special for button
-        //border style
-
-        return style.to_owned();
+        return style;
     }
 }

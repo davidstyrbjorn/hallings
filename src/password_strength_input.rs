@@ -17,6 +17,7 @@ pub struct PasswordStrengthInputProps {
     pub strength_callback: fn(strength: StrengthLevel),
 }
 
+// Default behaviour expects characters > 6 & for the str to contain a lowercase character
 pub fn calculate_strength_level(value: &str) -> StrengthLevel {
     let does_not_contain_lowercase = value.chars().all(|c| c.is_lowercase());
     if does_not_contain_lowercase {
@@ -96,7 +97,7 @@ pub fn PasswordStrengthInput(props: &CommonProps<PasswordStrengthInputProps>) ->
 
     html! {
         <div>
-            <input style={format!("width: {}px; min-width: 150px;", input_width_value.to_string())} type="password" value={text_value} oninput={on_change} />
+            <input placeholder="Password" style={format!("width: {}px; min-width: 150px;", input_width_value.to_string())} type="password" value={text_value} oninput={on_change} />
             <div
                 style="display: flex; align-items: center; gap: 5px; width: fit-content;"
                 ref={div_ref}
