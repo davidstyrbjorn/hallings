@@ -18,6 +18,10 @@ pub struct PasswordStrengthInputProps {
 }
 
 pub fn calculate_strength_level(value: &str) -> StrengthLevel {
+    let does_not_contain_lowercase = value.chars().all(|c| c.is_lowercase());
+    if does_not_contain_lowercase {
+        return StrengthLevel::LOW;
+    }
     match value.len() {
         0..=5 => StrengthLevel::LOW,
         6..=12 => StrengthLevel::MEDIUM,
@@ -41,7 +45,6 @@ pub fn PasswordStrengthInput(props: &CommonProps<PasswordStrengthInputProps>) ->
     let div_ref = use_node_ref();
 
     let input_width_value = (*input_width).clone();
-
     {
         let div_ref = div_ref.clone();
 
