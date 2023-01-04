@@ -14,7 +14,7 @@ pub enum StrengthLevel {
 pub struct PasswordStrengthInputProps {
     pub calculate_strength_level: Option<fn(value: String) -> StrengthLevel>,
     pub strength_level_to_text_and_color: Option<fn(value: StrengthLevel) -> (String, String)>,
-    pub strength_callback: fn(strength: StrengthLevel),
+    pub strength_callback: Option<fn(strength: StrengthLevel)>,
 }
 
 // Default behaviour expects characters > 6 & for the str to contain a lowercase character
@@ -91,8 +91,9 @@ pub fn PasswordStrengthInput(props: &CommonProps<PasswordStrengthInputProps>) ->
 
     // Call callback
     if let Some(custom) = props.custom {
-        let x = custom.strength_callback;
-        x(str_level);
+        if let Some(strength_callback) = custom.strength_callback {
+            strength_callback(str_level);
+        }
     }
 
     html! {

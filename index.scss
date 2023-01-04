@@ -5,3 +5,23 @@
 .hallings-line {
 	transition: stroke 0.5s;
 }
+
+* {
+	font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+input {
+	border-radius: 10px;
+	border: none;
+	border-bottom: 1px solid rgb(209, 199, 199);
+	padding: 15px;
+	transition: border 1s;
+	transition: border-radius 1s;
+}
+
+input:focus {
+	outline: none;
+	border-color: rgba(0, 0, 0, 0);
+	border-bottom: 1px solid black;
+	border-radius: 0px;
+}

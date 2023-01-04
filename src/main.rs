@@ -6,7 +6,7 @@ mod style_util;
 mod text;
 mod theme;
 
-mod prelude {
+pub mod prelude {
     pub use crate::button::*;
     pub use crate::button::*;
     pub use crate::password_strength_input::*;
@@ -29,9 +29,6 @@ mod prelude {
 }
 
 use prelude::*;
-use web_sys::console;
-use web_sys::Document;
-use yew::context;
 
 pub fn calculate_strength_level(value: String) -> StrengthLevel {
     if value.contains("secure") {
@@ -62,25 +59,33 @@ fn App() -> Html {
 
     let click = {
         let counter = counter.clone();
-        move |_s: yew::MouseEvent| {
+        Callback::from(move |_s: yew::MouseEvent| {
             counter.set(*counter + 1);
-        }
+        })
     };
-
-    let cb = Callback::from(click);
 
     html! {
         <MaestroProvider>
             <Text size={"40px"}>{"HALLINGS PLAYGROUND"}</Text>
+            <Text size={"40px"} custom={TextProps {
+                label: "Test".into()
+            }}/>
             // <Text color="red" size="64px">{"Hallingos"}</Text>
             <PasswordStrengthInput custom={PasswordStrengthInputProps {
-                // calculate_strength_level: Some(calculate_strength_level),
-                calculate_strength_level: None,
+                calculate_strength_level: Some(calculate_strength_level),
                 strength_level_to_text_and_color: Some(strength_level_to_text_and_color),
-                // strength_level_to_text_and_color: None,
-                strength_callback: on_level_change
+                strength_callback: Some(on_level_change)
             }} />
-            <Button custom={ButtonProps{label: "hello".into(), onclick: cb}}></Button>
+            <PasswordStrengthInput custom={PasswordStrengthInputProps {
+                calculate_strength_level: None,
+                strength_level_to_text_and_color: None,
+                strength_callback: None
+            }} />
+            <Button custom={
+                ButtonProps{ onclick: click}}
+            >
+                <Text color={"white"}>{"Next"}</Text>
+            </Button>
             <StepsLeft
                 custom= {
                     StepsLeftProps {
@@ -89,19 +94,13 @@ fn App() -> Html {
                         current_step: (*counter).clone(),
                         steps: vec![
                             Step {
-                                label: "Step 1".into()
+                                label: "Check out".into()
                             },
                             Step {
-                                label: "Step 3".into()
+                                label: "Confirm".into()
                             },
                             Step {
-                                label: "Step 3".into()
-                            },
-                            Step {
-                                label: "Step 3".into()
-                            },
-                            Step {
-                                label: "Step 3".into()
+                                label: "Pay".into()
                             },
                         ]
                     }
@@ -112,7 +111,7 @@ fn App() -> Html {
 }
 
 fn main() {
-    yew::Renderer::<App>::new().render();
+    yew::Renderer::<App>::;
 }
 
 // #[cfg(test)]
