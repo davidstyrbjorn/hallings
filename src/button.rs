@@ -4,8 +4,8 @@ pub struct ButtonProps {
     pub onclick: Callback<yew::MouseEvent>,
 }
 
-#[function_component]
-pub fn Button(props: &CommonPropsNoOption<ButtonProps>) -> Html {
+#[function_component(Button)]
+pub fn button_component(props: &CommonPropsNoOption<ButtonProps>) -> Html {
     let theme = use_context::<ThemeContext>();
     // Retrieve correct color for hovered
     let hovered_color = theme.as_ref().unwrap().secondary.clone();

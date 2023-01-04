@@ -17,11 +17,6 @@ pub mod prelude {
     pub use crate::theme::*;
     pub use gloo_events::*;
     pub use gloo_events::*;
-    pub use stylist::css;
-    pub use stylist::style;
-    pub use stylist::yew::styled_component;
-    pub use stylist::yew::use_style;
-    pub use stylist::Style;
     pub use web_sys::console;
     pub use yew::prelude::*;
     pub use yew::Properties;
@@ -111,11 +106,25 @@ fn App() -> Html {
 }
 
 fn main() {
-    yew::Renderer::<App>::;
+    yew::Renderer::<App>::new().render();
 }
 
-// #[cfg(test)]
-// pub mod tests {
+#[cfg(test)]
+pub mod tests {
+    use crate::{button, prelude::*};
+
+    #[function_component]
+    fn App() -> Html {
+        html! {
+            <p>{"hej"}</p>
+        }
+    }
+
+    #[test]
+    fn test() {
+        assert_eq!(1, 1);
+    }
+}
 //     use super::*;
 //     use wasm_bindgen::JsCast;
 //     use wasm_bindgen_test::wasm_bindgen_test;

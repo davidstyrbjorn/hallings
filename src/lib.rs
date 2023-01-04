@@ -19,13 +19,8 @@ pub mod prelude {
     pub use crate::theme::*;
     pub use gloo_events::*;
     pub use gloo_events::*;
-    pub use stylist::css;
-    pub use stylist::style;
-    pub use stylist::yew::styled_component;
-    pub use stylist::yew::use_style;
-    pub use stylist::Style;
     pub use web_sys::console;
     pub use yew::prelude::*;
     pub use yew::Properties;
-    pub use yew::ServerRenderer;
+    // pub use yew::ServerRenderer;
 }
