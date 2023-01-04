@@ -44,8 +44,6 @@ async fn text_inner_html_test() {
 
 #[wasm_bindgen_test]
 async fn button_onclick_test() {
-    let mut counter = 0;
-
     #[function_component]
     fn App() -> Html {
         let text = use_state(|| "not clicked");
@@ -53,8 +51,6 @@ async fn button_onclick_test() {
         let click = {
             let text = text.clone();
             Callback::from(move |_s: yew::MouseEvent| {
-                // Modify some state of inner html
-                console::log_1(&"data_1".into());
                 text.set("clicked");
             })
         };
@@ -67,7 +63,12 @@ async fn button_onclick_test() {
                         ButtonProps{ onclick: click}
                     }
                 >
-                    <Text class={classes!("text_class")} color={"white"}>{*text}</Text>
+                    <Text
+                        class={classes!("text_class")}
+                        color={"white"}
+                    >
+                        {*text}
+                    </Text>
                 </Button>
             </MaestroProvider>
         }
@@ -81,8 +82,9 @@ async fn button_onclick_test() {
     // Pre click
     let text_value = obtain_text_value();
     assert_eq!(&text_value, "not clicked");
-    
+
     simulate_click();
+    sleep(Duration::from_millis(100)).await;
 
     // Post click
     let text_value = obtain_text_value();
@@ -96,17 +98,17 @@ async fn button_onclick_test() {
             .inner_html()
     }
 
-    pub fn simulate_click() {
+    fn simulate_click() {
         let button_collection = gloo_utils::document().get_elements_by_class_name("button_class");
         let binding = button_collection
             .get_with_index(0)
-                .expect("Cant't find Text component");
+            .expect("Cant't find Text component");
         let button = binding.dyn_ref::<HtmlElement>();
         if let Some(button_element) = button {
             console::log_1(&button_element);
             button_element.click();
         }
-    }
+    };
 }
 
 // #[wasm_bindgen_test]
