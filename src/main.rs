@@ -24,6 +24,7 @@ pub mod prelude {
 }
 
 use prelude::*;
+use web_sys::Document;
 
 pub fn calculate_strength_level(value: String) -> StrengthLevel {
     if value.contains("secure") {
@@ -32,7 +33,7 @@ pub fn calculate_strength_level(value: String) -> StrengthLevel {
     StrengthLevel::LOW
 }
 
-pub fn on_level_change(strength_level: StrengthLevel) {
+pub fn on_level_change(_strength_level: StrengthLevel) {
     // match strength_level {
     //     StrengthLevel::LOW => console::log_1(&"LOW".into()),
     //     StrengthLevel::MEDIUM => console::log_1(&"MEDIUM".into()),
@@ -111,7 +112,7 @@ fn main() {
 
 #[cfg(test)]
 pub mod tests {
-    use crate::{button, prelude::*};
+    use crate::prelude::*;
 
     #[function_component]
     fn App() -> Html {
