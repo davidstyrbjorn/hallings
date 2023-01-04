@@ -7,9 +7,8 @@ edition = "2021"
 
 [dependencies]
 # For debugging and logging
-yew = { version = "0.20", features = ["ssr", "csr"] }
-stylist = {version = "0.11", features = ["yew_integration"] }
 web-sys = {version = "0.3.60", features=["HtmlElement", "HtmlCollection","Element", "Event", "EventTarget"]}
+yew = { version = "0.20", features = ["ssr", "csr"] }
 wasm-bindgen = "0.2.83"
 gloo-events = "0.1.2"
 wasm-bindgen-test = "0.3.33"

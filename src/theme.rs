@@ -26,7 +26,7 @@ impl ToSVGHex for String {
 impl Reducible for Theme {
     type Action = String;
 
-    fn reduce(self: Rc<Self>, action: Self::Action) -> Rc<Self> {
+    fn reduce(self: Rc<Self>, _action: Self::Action) -> Rc<Self> {
         self
     }
 }

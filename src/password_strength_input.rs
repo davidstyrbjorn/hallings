@@ -58,7 +58,7 @@ pub fn PasswordStrengthInput(props: &CommonProps<PasswordStrengthInputProps>) ->
 
                 move || {}
             },
-            (div_ref),
+            div_ref,
         );
     }
 
