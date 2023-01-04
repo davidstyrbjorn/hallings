@@ -46,8 +46,8 @@ pub fn Button(props: &CommonPropsNoOption<ButtonProps>) -> Html {
             onmouseleave={move |e: MouseEvent| mouse_leave.emit(e)}
             onclick={move |e: yew::MouseEvent| on_click.emit(e)}
             style={styles}
+            class={classes!(props.class.clone())}
         >
-            // <Text color={"white"}>{&props.custom.label}</Text>
             {props.children.clone()}
         </button>
     }

@@ -111,33 +111,8 @@ fn App() -> Html {
 }
 
 fn main() {
-    yew::Renderer::<App>::;
+    yew::Renderer::<App>::new().render();
 }
 
-// #[cfg(test)]
-// pub mod tests {
-//     use super::*;
-//     use wasm_bindgen::JsCast;
-//     use wasm_bindgen_test::wasm_bindgen_test;
-//     use web_sys::HtmlElement;
-
-//     // This macro should be only called once per binary in crate
-//     wasm_bindgen_test::wasm_bindgen_test_configure!(run_in_browser);
-
-//     #[wasm_bindgen_test]
-//     fn clicking_on_button_should_increment_value() {
-//         let document = gloo_utils::document();
-//         let body = document.body().unwrap();
-//         let div = document.create_element("div").unwrap();
-//         body.append_child(&div).unwrap();
-//         yew::start_app_in_element::<Model>(div);
-
-//         let value = body.query_selector(".panel > p").unwrap().unwrap();
-//         let button = body.query_selector(".panel > button").unwrap().unwrap();
-//         let button = button.dyn_into::<HtmlElement>().unwrap();
-
-//         assert_eq!("0", value.text_content().unwrap());
-//         button.click();
-//         assert_eq!("1", value.text_content().unwrap());
-//     }
-// }
+#[cfg(test)]
+mod test;
