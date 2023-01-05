@@ -104,7 +104,7 @@ pub fn PasswordStrengthInput(props: &CommonProps<PasswordStrengthInputProps>) ->
                 ref={div_ref}
             >
                 <div style={format!("width: 60px; height: 15px; border-radius: 5px; background-color: {}", text_and_color.1)}/>
-                <Text color={text_and_color.1}>{text_and_color.0}</Text>
+                <Text class={classes!("text_class")} color={text_and_color.1}>{text_and_color.0}</Text>
             </div>
         </div>
     }
