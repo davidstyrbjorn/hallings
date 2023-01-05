@@ -1,34 +1,24 @@
-# :scissors:+:crab: -> Hallings - components for Yew
+# 💇‍♂️+🦀 -> Hallings - components for Yew
 
-## :question: Purpose
+## ❓ Purpose
 
 ### <i>What if there existed a couple of pre-built components for yew like password strength checker or steps-left? Wonder no more.</i>
 
-:::warning
-Note: this is not a finished library it is meant as a prototype/test during a master's course at LiU (Sweden), it should not be used for any real world projects :slightly_smiling_face:
-:::
+> ⚠ <b>this is not a finished library it is meant as a prototype/test during a master's course at LiU (Sweden), it should not be used for any real world projects </b>
 
 ## Prerequisites
 
-:::info
-Yew: version "0.20"
-:::
+> ✔ <b>Yew: version "0.20"</b>
 
-## :checkered_flag: Getting started
+## 🏁 Getting started
 
 1. [Install Yew](https://yew.rs/docs/getting-started/introduction)
-2. Add in `Cargo.toml` file
-
-```toml=
-hallings = "0.1"
-```
-
+2. Add dependency to `Cargo.toml` file <code>hallings = "0.1"</code>
 3. Bring in the library by doing <code>use hallings::prelude::\*</code>
-   :::success
-   As simple as that to get started
-   :::
 
-## :pencil: Running tests
+> 👷‍♂️ <b>As simple as that to get started</b>
+
+## ✒ Running tests
 
 All tests are located in <code>test.rs</code>.
 To run tests make sure you have installed everything required, then run.
@@ -39,7 +29,7 @@ To run tests make sure you have installed everything required, then run.
 
 You could replace <code>--chrome</code> with <code>--firefox</code>. Check the [wasm-pack documentation for more info](https://rustwasm.github.io/wasm-pack/book/commands/test.html)
 
-## :ok_hand: Check out our usage examples below...
+## 👌 Check out our usage examples below...
 
 ### Provider & Theme
 
