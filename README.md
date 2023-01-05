@@ -1,24 +1,59 @@
-# hallings - prebuilt yew components
+# :scissors:+:crab: -> Hallings - components for Yew
+
+## :question: Purpose
 
 ### <i>What if there existed a couple of pre-built components for yew like password strength checker or steps-left? Wonder no more.</i>
 
-Add <code>hallings</code> as a dependency to your existing <code>yew</code> by adding it to your <code>Cargo.toml</code> file. Next bring in all that hallings has to offer by <code>use hallings::prelude::\*</code>.
+:::warning
+Note: this is not a finished library it is meant as a prototype/test during a master's course at LiU (Sweden), it should not be used for any real world projects :slightly_smiling_face:
+:::
 
-## Check out our usage examples below...
+## Prerequisites
+
+:::info
+Yew: version "0.20"
+:::
+
+## :checkered_flag: Getting started
+
+1. [Install Yew](https://yew.rs/docs/getting-started/introduction)
+2. Add in `Cargo.toml` file
+
+```toml=
+hallings = "0.1"
+```
+
+3. Bring in the library by doing <code>use hallings::prelude::\*</code>
+   :::success
+   As simple as that to get started
+   :::
+
+## :pencil: Running tests
+
+All tests are located in <code>test.rs</code>.
+To run tests make sure you have installed everything required, then run.
+
+<ul>
+    <li><code>wasm-pack test --chrome</code>   </li> 
+</ul>
+
+You could replace <code>--chrome</code> with <code>--firefox</code>. Check the [wasm-pack documentation for more info](https://rustwasm.github.io/wasm-pack/book/commands/test.html)
+
+## :ok_hand: Check out our usage examples below...
 
 ### Provider & Theme
 
 Halling uses [Context Providers](https://yew.rs/docs/concepts/contexts) to provide components with theme data. Currently you can not pass your own theme struct.
 
 ```html
-<Maestro> halling components </Maestro>
+<MaestroProvider> halling components </MaestroProvider>
 ```
 
 All of the examples have been tested using <code>yew = "0.20"</code> inside [Function Components](https://yew.rs/docs/concepts/function-components)
 
 ### Text
 
-```html
+```htmlmixed=
 <Text
     size={"40px"}
     color={"purple"} // if none is specified theme color is used
@@ -30,13 +65,13 @@ All of the examples have been tested using <code>yew = "0.20"</code> inside [Fun
 
 Or feed text through as prop variable,
 
-```html
+```htmlmixed
 <Text size={"40px"} custom={TextProps { label: "Test".into() }}/>
 ```
 
 ### Button
 
-```rust
+```rust=
 let counter = use_state(|| 0);
 
 let click = {
@@ -57,7 +92,7 @@ let click = {
 
 This component provides a password input component while also providing feedback dependent on how strong the given password currently is. You can provide your own strength checking function and formatting functions. Right now there is no direct way to extract the password value.
 
-```rust
+```rust=
 <PasswordStrengthInput
 	custom = { PasswordStrengthInputProps
 	{
@@ -70,7 +105,7 @@ This component provides a password input component while also providing feedback
 
 <i>Example 1 (default behaviour)</i>
 
-```rust
+```rust=
 pub fn calculate_strength_level(value: String) -> StrengthLevel {
     if value.contains("secure") {
         return StrengthLevel::HIGH;
@@ -105,7 +140,7 @@ fn strength_level_to_text_and_color(value: StrengthLevel) -> (String, String) {
 
 Steps left draws its UI using <code>svg, circle</code> & <code>lines</code>. The width and height dictates the width and height of the svg image. You can feed however many steps and the component will dynamically position and space the steps.
 
-```rust
+```rust=
 <StepsLeft
     custom = {
         StepsLeftProps {
