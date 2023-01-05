@@ -1,3 +1,5 @@
+use std::fmt;
+
 use yew::prelude::*;
 
 use crate::prelude::{CommonPropsNoOption, ThemeContext, ToSVGHex};
@@ -13,6 +15,16 @@ pub struct StepsLeftProps {
     pub height: usize,
     pub current_step: usize,
     pub steps: Vec<Step>,
+}
+
+impl fmt::Debug for StepsLeftProps {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("StepsLeftProps")
+            .field("width", &self.width)
+            .field("height", &self.height)
+            .field("current_step", &self.current_step)
+            .finish()
+    }
 }
 
 #[function_component]

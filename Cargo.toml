@@ -2,8 +2,13 @@
 name = "hallings"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+license = "MIT"
+description = "Styling framework for Yew ✂"
+homepage = "https://github.com/davidstyrbjorn/hallings"
+documentation = "https://github.com/davidstyrbjorn/hallings"
+repository = "https://github.com/davidstyrbjorn/hallings"
+readme = "README.md"
+keywords = ["web", "yew", "UI", "library", "wasm"]
 
 [dependencies]
 # For debugging and logging

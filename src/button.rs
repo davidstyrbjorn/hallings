@@ -1,3 +1,5 @@
+use std::fmt;
+
 use crate::prelude::*;
 
 use yew::prelude::*;
@@ -5,6 +7,12 @@ use yew::prelude::*;
 #[derive(PartialEq, Properties, Clone)]
 pub struct ButtonProps {
     pub onclick: Callback<yew::MouseEvent>,
+}
+
+impl fmt::Debug for ButtonProps {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("ButtonProps").finish()
+    }
 }
 
 #[function_component(Button)]

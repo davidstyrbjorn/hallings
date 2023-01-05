@@ -1,14 +1,26 @@
-use std::rc::Rc;
+use std::{fmt, rc::Rc};
 
 use yew::prelude::*;
 
-#[derive(Debug, PartialEq, Eq, Clone)]
+#[derive(PartialEq, Eq, Clone)]
 pub struct Theme {
     pub text_color: String,
     pub main: String,
     pub secondary: String,
     pub white: String,
     pub foreground: String,
+}
+
+impl fmt::Debug for Theme {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("Theme")
+            .field("text_color", &self.text_color)
+            .field("main", &self.main)
+            .field("secondary", &self.secondary)
+            .field("white", &self.white)
+            .field("foreground", &self.foreground)
+            .finish()
+    }
 }
 
 pub trait ToSVGHex {

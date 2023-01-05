@@ -1,3 +1,5 @@
+use std::fmt;
+
 use crate::prelude::*;
 
 use yew::prelude::*;
@@ -5,6 +7,14 @@ use yew::prelude::*;
 #[derive(PartialEq, Properties, Clone)]
 pub struct TextProps {
     pub label: String,
+}
+
+impl fmt::Debug for TextProps {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("TextProps")
+            .field("label", &self.label)
+            .finish()
+    }
 }
 
 #[function_component]

@@ -1,3 +1,5 @@
+use std::fmt;
+
 use wasm_bindgen::JsCast;
 use web_sys::{EventTarget, HtmlElement, HtmlInputElement};
 use yew::prelude::*;
@@ -16,6 +18,12 @@ pub struct PasswordStrengthInputProps {
     pub calculate_strength_level: Option<fn(value: String) -> StrengthLevel>,
     pub strength_level_to_text_and_color: Option<fn(value: StrengthLevel) -> (String, String)>,
     pub strength_callback: Option<fn(strength: StrengthLevel)>,
+}
+
+impl fmt::Debug for PasswordStrengthInputProps {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("PasswordStrengthInputProps").finish()
+    }
 }
 
 // Default behaviour expects characters > 6 & for the str to contain a lowercase character
