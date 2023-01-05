@@ -1,4 +1,4 @@
-use crate::prelude::*;
+use yew::prelude::*;
 
 /*
     Common props i expect all components to use

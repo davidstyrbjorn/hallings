@@ -1,4 +1,6 @@
-use crate::prelude::*;
+use yew::prelude::*;
+
+use crate::prelude::{CommonPropsNoOption, ThemeContext, ToSVGHex};
 
 #[derive(PartialEq, Properties, Clone)]
 pub struct Step {
@@ -24,7 +26,7 @@ pub fn StepsLeft(props: &CommonPropsNoOption<StepsLeftProps>) -> Html {
 
     let steps = props.custom.steps.clone();
     // Generate the steps i.e circles
-    let steps_display = steps
+    let steps_display: Html = steps
         .into_iter()
         .enumerate()
         .map(|(i, step)| {
@@ -53,7 +55,7 @@ pub fn StepsLeft(props: &CommonPropsNoOption<StepsLeftProps>) -> Html {
                 </>
             }
         })
-        .collect::<Html>();
+        .collect();
 
     let steps = props.custom.steps.clone();
 

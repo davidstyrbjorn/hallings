@@ -5,29 +5,19 @@ wasm_bindgen_test::wasm_bindgen_test_configure!(run_in_browser);
 use std::time::Duration;
 
 use crate::prelude::*;
-use gloo_utils::*;
-use nom::bytes::complete::tag;
-use nom::sequence::preceded;
 use wasm_bindgen::JsCast;
-use wasm_bindgen_futures::spawn_local;
 use wasm_bindgen_test::*;
-use web_sys::{Element, HtmlElement};
-use yew::platform::time::sleep;
-use yew::prelude::*;
+use web_sys::{HtmlElement, HtmlInputElement};
+use yew::{html::onchange::Event, platform::time::sleep};
 
 // Find color: XXX; and return XXX
 // should work good with color: XXX; existing in any place inside a string
-fn get_style_color(style: &str) -> String {
-
-    let parser = preceded(tag("color:"), tag(";"));
-    
-    
-    if let Ok(x) = parser(style) {
-        String::from(x.0)
-    } else {
-        "Not found".into()
-    }
-
+fn get_style_color(style: &str) -> Option<String> {
+    let idx = style.find("color:")?;
+    let style = &style[idx..style.len()];
+    let idx2 = style.find(";")?;
+    let style = String::from(&style[(idx + 6)..idx2]);
+    Some(String::from(style.trim()))
 }
 
 #[wasm_bindgen_test]
@@ -108,7 +98,6 @@ async fn button_onclick_test() {
             .expect("Cant't find Text component");
         let button = binding.dyn_ref::<HtmlElement>();
         if let Some(button_element) = button {
-            console::log_1(&button_element);
             button_element.click();
         }
     };
@@ -149,81 +138,55 @@ async fn password_strength_level_test() {
 
     sleep(Duration::from_millis(500)).await;
 
-    let obtain_text_and_color = move || -> (String, String) {
+    let obtain_color = move || -> Option<String> {
         let element = gloo_utils::document()
             .get_elements_by_class_name("text_class")
             .get_with_index(0)
             .expect("Cant't find Text component");
 
         let html_element = element.dyn_into::<HtmlElement>();
-        let mut color_string: String = String::from("");
-        if html_element.is_ok() {
-            if let Some(html_element) = html_element.ok() {
-                let style_string = html_element.style().css_text();
-                if style_string.contains("color") {
-                    let result = style_string.split("color:").collect::<Vec<&str>>();
-                    color_string = result.concat();
-                }
-            }
+
+        if let Some(html_element) = html_element.ok() {
+            let style_string = html_element.style().css_text();
+            return get_style_color(&style_string);
         }
 
-        (String::from(color_string), String::from("Hej"))
+        None
     };
 
-    let result = obtain_text_and_color();
-    console::log_1(&result.0.into());
-    assert_eq!(1, 1);
+    let update_input_field = move |with: &str| {
+        let element = gloo_utils::document()
+            .get_elements_by_class_name("hallings-input")
+            .get_with_index(0)
+            .expect("Cant't find Text component");
+
+        let html_input_element = element
+            .dyn_into::<HtmlInputElement>()
+            .expect("Couldn't convert to HtmlInputElement in update_input_field");
+
+        html_input_element.set_value(&with);
+
+        let event =
+            Event::new("input").expect("Failed to create input event in update_input_field");
+        html_input_element
+            .dispatch_event(&event)
+            .expect("Failed to dispatch input event in update_input_field");
+    };
+
+    let color = obtain_color().expect("No color entry found in text!");
+    assert_eq!(&color, "red");
+
+    // Input text into the password strength input field and update the component
+
+    update_input_field("hhfhhh11");
+    sleep(Duration::from_millis(1000)).await;
+
+    let color = obtain_color().expect("No color entry found in text!");
+    assert_eq!(&color, "yellow");
+
+    update_input_field("hhfhhfdafasdfasdfdafh11");
+    sleep(Duration::from_millis(1000)).await;
+
+    let color = obtain_color().expect("No color entry found in text!");
+    assert_eq!(&color, "green");
 }
-
-// #[wasm_bindgen_test]
-// async fn steps_left_circle_test() {
-
-//     #[function_component]
-//     fn App() -> Html {
-//         html! {
-//             <p id="result">{"hello"}</p>
-//         }
-//     }
-
-//     yew::Renderer::<App>::with_root(gloo_utils::document().get_element_by_id("output").unwrap())
-//         .render();
-
-//     sleep(Duration::from_millis(100)).await;
-
-//     let result = obtain_result();
-//     assert_eq!(result.as_str(), "hello");
-
-//     pub fn obtain_result() -> String {
-//         gloo_utils::document()
-//             .get_element_by_id("result")
-//             .expect("No result found. Most likely, the application crashed and burned")
-//             .inner_html()
-//     }
-// }
-
-// //test theme context
-// #[wasm_bindgen_test]
-// async fn maestro_test() {
-
-//     #[function_component]
-//     fn App() -> Html {
-//         html! {
-//             <p id="result">{"hello"}</p>
-//         }
-//     }
-
-//     yew::Renderer::<App>::with_root(gloo_utils::document().get_element_by_id("output").unwrap())
-//         .render();
-
-//     sleep(Duration::from_millis(100)).await;
-
-//     let result = obtain_result();
-//     assert_eq!(result.as_str(), "hello");
-
-//     pub fn obtain_result() -> String {
-//         gloo_utils::document()
-//             .get_element_by_id("result")
-//             .expect("No result found. Most likely, the application crashed and burned")
-//             .inner_html()
-//     }
-// }

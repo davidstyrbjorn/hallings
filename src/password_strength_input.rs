@@ -1,5 +1,6 @@
 use wasm_bindgen::JsCast;
 use web_sys::{EventTarget, HtmlElement, HtmlInputElement};
+use yew::prelude::*;
 
 use crate::prelude::*;
 
@@ -33,7 +34,7 @@ pub fn calculate_strength_level(value: &str) -> StrengthLevel {
 fn strength_level_to_text_and_color(value: &StrengthLevel) -> (String, String) {
     match value {
         StrengthLevel::LOW => ("Low level".into(), "red".into()),
-        StrengthLevel::MEDIUM => ("Medium level".into(), "blue".into()),
+        StrengthLevel::MEDIUM => ("Medium level".into(), "yellow".into()),
         StrengthLevel::HIGH => ("High level".into(), "green".into()),
     }
 }
@@ -98,7 +99,7 @@ pub fn PasswordStrengthInput(props: &CommonProps<PasswordStrengthInputProps>) ->
 
     html! {
         <div>
-            <input placeholder="Password" style={format!("width: {}px; min-width: 150px;", input_width_value.to_string())} type="password" value={text_value} oninput={on_change} />
+            <input class={classes!("hallings-input")} placeholder="Password" style={format!("width: {}px; min-width: 150px;", input_width_value.to_string())} type="password" value={text_value} oninput={on_change} />
             <div
                 style="display: flex; align-items: center; gap: 5px; width: fit-content;"
                 ref={div_ref}

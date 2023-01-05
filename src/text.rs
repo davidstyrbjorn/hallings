@@ -1,5 +1,7 @@
 use crate::prelude::*;
 
+use yew::prelude::*;
+
 #[derive(PartialEq, Properties, Clone)]
 pub struct TextProps {
     pub label: String,

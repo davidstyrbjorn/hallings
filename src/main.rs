@@ -24,7 +24,6 @@ pub mod prelude {
 }
 
 use prelude::*;
-use web_sys::Document;
 
 pub fn calculate_strength_level(value: String) -> StrengthLevel {
     if value.contains("secure") {

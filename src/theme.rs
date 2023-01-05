@@ -1,6 +1,5 @@
 use std::rc::Rc;
 
-// pub use crate::prelude::*;
 use yew::prelude::*;
 
 #[derive(Debug, PartialEq, Eq, Clone)]
