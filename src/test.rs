@@ -6,7 +6,7 @@ use std::time::Duration;
 
 use crate::prelude::*;
 use gloo_utils::*;
-use nom::bytes::complete::{tag, take_until};
+use nom::bytes::complete::tag;
 use nom::sequence::preceded;
 use wasm_bindgen::JsCast;
 use wasm_bindgen_futures::spawn_local;
@@ -17,11 +17,18 @@ use yew::prelude::*;
 
 // Find color: XXX; and return XXX
 // should work good with color: XXX; existing in any place inside a string
-fn get_style_color(style: String) -> String {
-    let Ok(x) = preceded(tag("color:"), tag(";")){
-        x
+fn get_style_color(style: &str) -> String {
+
+    let parser = preceded(tag("color:"), tag(";"));
+    
+    
+    if let Ok(x) = parser(style) {
+        String::from(x.0)
+    } else {
+        "Not found".into()
     }
 
+}
 
 #[wasm_bindgen_test]
 async fn text_inner_html_test() {
