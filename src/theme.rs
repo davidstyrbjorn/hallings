@@ -1,5 +1,4 @@
 use std::{fmt, rc::Rc};
-
 use yew::prelude::*;
 
 #[derive(PartialEq, Eq, Clone)]

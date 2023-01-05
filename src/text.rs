@@ -1,7 +1,5 @@
-use std::fmt;
-
 use crate::prelude::*;
-
+use std::fmt;
 use yew::prelude::*;
 
 #[derive(PartialEq, Properties, Clone)]

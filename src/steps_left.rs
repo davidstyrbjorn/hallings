@@ -1,8 +1,6 @@
-use std::fmt;
-
-use yew::prelude::*;
-
 use crate::prelude::{CommonPropsNoOption, ThemeContext, ToSVGHex};
+use std::fmt;
+use yew::prelude::*;
 
 #[derive(PartialEq, Properties, Clone)]
 pub struct Step {

@@ -1,10 +1,8 @@
+use crate::prelude::*;
 use std::fmt;
-
 use wasm_bindgen::JsCast;
 use web_sys::{EventTarget, HtmlElement, HtmlInputElement};
 use yew::prelude::*;
-
-use crate::prelude::*;
 
 #[derive(Clone, Copy)]
 pub enum StrengthLevel {

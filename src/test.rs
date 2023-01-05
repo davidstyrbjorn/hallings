@@ -1,10 +1,8 @@
 #[cfg(target_arch = "wasm32")]
-
 wasm_bindgen_test::wasm_bindgen_test_configure!(run_in_browser);
 
-use std::time::Duration;
-
 use crate::prelude::*;
+use std::time::Duration;
 use wasm_bindgen::JsCast;
 use wasm_bindgen_test::*;
 use web_sys::{HtmlElement, HtmlInputElement};
