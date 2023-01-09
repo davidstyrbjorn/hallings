@@ -15,8 +15,6 @@ pub mod prelude {
     pub use crate::style_util::*;
     pub use crate::text::*;
     pub use crate::theme::*;
-    pub use gloo_events::*;
-    pub use gloo_events::*;
     pub use web_sys::console;
     pub use yew::prelude::*;
     pub use yew::Properties;
