@@ -25,4 +25,4 @@ yew = { version = "0.20", features = ["ssr", "csr"] }
 wasm-bindgen = "0.2.92"
 wasm-bindgen-test = "0.3.42"
 wasm-bindgen-futures = "0.4.42"
-gloo-utils = "0.1.2"
+gloo-utils = "0.2.0"
