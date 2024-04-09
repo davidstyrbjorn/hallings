@@ -1,4 +1,5 @@
 mod button;
+mod jumpscare;
 mod password_strength_input;
 mod props;
 mod steps_left;
@@ -9,6 +10,7 @@ mod theme;
 pub mod prelude {
     pub use crate::button::*;
     pub use crate::button::*;
+    pub use crate::jumpscare::*;
     pub use crate::password_strength_input::*;
     pub use crate::props::*;
     pub use crate::steps_left::*;
@@ -99,6 +101,7 @@ fn App() -> Html {
                     }
                 }
             />
+            <JumpScare/>
         </MaestroProvider>
     }
 }

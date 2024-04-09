@@ -21,7 +21,7 @@ impl StyleUtil {
             style += &format!("{}: {}; ", key, style_entries[key]);
         });
 
-        return style;
+        style
     }
 
     pub fn create_button_style(props: &CommonPropsNoOption<ButtonProps>, theme: &Theme) -> String {
@@ -55,6 +55,17 @@ impl StyleUtil {
             style += &format!("{}: {}; ", key, style_entries[key]);
         });
 
-        return style;
+        style
+    }
+
+    pub fn create_jumpscare_style(props: &CommonProps<JumpScareProps>, theme: &Theme) -> String {
+        let mut style_entries = HashMap::new();
+        style_entries.insert("opacity", "100%");
+
+        let mut style = String::new();
+        style_entries.keys().for_each(|key| {
+            style += &format!("{}: {}; ", key, style_entries[key]);
+        });
+        style
     }
 }
