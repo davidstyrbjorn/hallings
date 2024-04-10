@@ -26,16 +26,12 @@ input:focus {
 	border-radius: 0px;
 }
 
-.jumpscare {
-	position: absolute;
-}
-
-.jumpscare:before {
+.jumpscare-show {
 	width: 100vw;
 	height: 100vh;
-	background-color: red;
-	z-index: 10000;
-	position: absolute;
-	left: 0;
-	top: 0;
+}
+
+.jumpscare-hide {
+	width: 0px;
+	height: 0px;
 }

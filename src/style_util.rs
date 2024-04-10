@@ -58,10 +58,14 @@ impl StyleUtil {
         style
     }
 
-    pub fn create_jumpscare_style(props: &CommonProps<JumpScareProps>, theme: &Theme) -> String {
+    pub fn create_jumpscare_style(props: &CommonProps<JumpScareProps>, theme: &Theme, show: bool) -> String {
         let mut style_entries = HashMap::new();
-        style_entries.insert("opacity", "100%");
 
+        style_entries.insert("position", "absolute");
+        
+        style_entries.insert("top", "0");
+        style_entries.insert("left", "0");
+        
         let mut style = String::new();
         style_entries.keys().for_each(|key| {
             style += &format!("{}: {}; ", key, style_entries[key]);
